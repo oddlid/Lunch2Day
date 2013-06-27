@@ -4,3 +4,9 @@ The Engine will manage the JSON structure and serialization, updating it or serv
 Will be implemented in Perl, running as a server with a predefined command set for available modes of operation.
 
 Odd, 2013-05-14 15:24:28
+
+--
+
+Update, 2013-06-23:
+I'm thinking about trying to implement the Engine in C++ instead, as it will probably mostly handle storing and retrtrieving data, not much regex and text parsing. Inspired by the book "The C++ Standard Library 2. Edition" :)
+
