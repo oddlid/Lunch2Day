@@ -10,6 +10,14 @@
 #include <iostream>
 #include <unordered_map>
 
+//const std::string kv_as_json
+
+typedef struct JSONEntry je {
+   std::string key;
+   std::string val;
+};
+
+
 class Dish 
 {
     public:
@@ -22,7 +30,19 @@ class Dish
         }
 
         ~Dish() {
-           std::cout << "Deleting dish \"" << name << " " << desc << "\"" << std::endl;
+           std::cout << "Deleting dish: \"" << name << " " << desc << "\"" << std::endl;
+        }
+
+        const std::string as_json() {
+           return std::string (
+                 "{ \"dish\": \"" + 
+                 this->name + 
+                 "\", \"desc\": \"" + 
+                 this->desc + 
+                 "\", \"price\": \"" + 
+                 std::to_string(this->price) + 
+                 "\" }"
+               );
         }
 };
 
@@ -30,7 +50,8 @@ class Restaurant
 {
     public:
         std::string name;
-        std::vector<std::shared_ptr<Dish>> dishes;
+        //std::vector<std::shared_ptr<Dish>> dishes;
+        std::unordered_map<std::string, std::shared_ptr<Dish>> dishes;
 
         Restaurant(const std::string& n) 
            : name(n) {
@@ -40,12 +61,22 @@ class Restaurant
            std::cout << "Deleting restaurant \"" << name << "\"" << std::endl;
         }
 
+        /*
         void dump() {
            std::cout << this->name << std::endl;
            for (auto ptr : dishes) {
               std::cout << "\t" << ptr->name << " " << ptr->desc << " - " << ptr->price << ";-" << std::endl;
            }
            std::cout << std::endl;
+        }
+        */
+
+        void dump() {
+           using namespace std;
+           cout << this->name << endl;
+           for (auto& x : dishes) {
+              cout << x.first << " : " << x.second->as_json() << endl;
+           }
         }
 };
 
@@ -96,17 +127,15 @@ class GlobalMenu
 };
 
 int main() {
-   //std::shared_ptr<Dish> d(new Dish("Meatballs", "with mashed potatoes", 85));
-   //std::cout << "Dish: " << d->name << " " << d->desc << " - " << d->price << ";-" << std::endl;
    
    std::shared_ptr<Restaurant> r(new Restaurant("Semcon"));
    std::shared_ptr<Dish> d1(new Dish("Burger", "with fries", 85));
    std::shared_ptr<Dish> d2(new Dish("Meatballs", "with mashed potatoes", 75));
    std::shared_ptr<Dish> d3(new Dish("Lingon", "med hestflesk", 75));
 
-   r->dishes.push_back(d1);
-   r->dishes.push_back(d2);
-   r->dishes.push_back(d3);
+   r->dishes.emplace(d1->name, d1);
+   r->dishes.emplace(d2->name, d2);
+   r->dishes.emplace(d3->name, d3);
 
    r->dump();
 

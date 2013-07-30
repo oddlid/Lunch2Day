@@ -1,0 +1,35 @@
+// Testing Google Protocol Buffers
+// Odd, 2013-07-26 11:19:02
+
+package Menu;
+
+message Dish {
+   required string name = 1;
+   optional string desc = 2;
+   optional int32 price = 3;
+}
+
+message Restaurant {
+   required string name = 1;
+   repeated Dish dishes = 2;
+}
+
+message Site {
+   required string name = 1;
+   repeated Restaurant restaurants = 2;
+}
+
+message City {
+   required string name = 1;
+   repeated Site sites = 2;
+}
+
+message Country {
+   required string name = 1;
+   repeated City cities = 2;
+}
+
+message Menu {
+   optional string name = 1;
+   repeated Country countries = 2;
+}
