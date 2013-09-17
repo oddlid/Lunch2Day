@@ -8,5 +8,12 @@ Odd, 2013-05-14 15:24:28
 --
 
 Update, 2013-06-23:
-I'm thinking about trying to implement the Engine in C++ instead, as it will probably mostly handle storing and retrtrieving data, not much regex and text parsing. Inspired by the book "The C++ Standard Library 2. Edition" :)
+I'm thinking about trying to implement the Engine in C++ instead, as it will probably mostly handle storing and 
+retrtrieving data, not much regex and text parsing. Inspired by the book "The C++ Standard Library 2. Edition" :)
+
+Update, 2013-09-17:
+C++ was a wet dream, inspired by having vacation and too much time. So, no, it will be Perl, at least for now.
+Thinking of using ZeroMQ for messaging. Need to learn it first. Should make it a lot easier to mix languages at will, and 
+running distributed.
+Will use SQLite DB backend, and use JSON for sending and receiving data outside the Engine.
 
